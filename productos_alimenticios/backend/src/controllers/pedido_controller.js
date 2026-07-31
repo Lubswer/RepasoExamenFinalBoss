@@ -57,9 +57,9 @@ const registrar = async(req, res) => {
 const listar = async(req , res) => {
     try{
 
-        const pedidos = await pedido.find()
+        const pedidos = await pedido.find().populate("cliente", "nombre email").populate("producto", "nombre precio stock")
 
-        res.status(200).json({pedidos})
+        res.status(200).json(pedidos)
 
     }catch(error){
 

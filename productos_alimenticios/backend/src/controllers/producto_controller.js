@@ -47,7 +47,7 @@ const listar = async(req , res) => {
     try{
 
         const productos = await producto.find()
-        res.status(200).json({msg : "Productos Listados correctamente", productos})
+        res.status(200).json( productos)
 
 
     }catch(error){

@@ -4,6 +4,6 @@ import { Router } from "express"
 const userRoutes = Router()
 
 userRoutes.post("/usuario/registro", registro)
-userRoutes.get("/usuario/login", login)
+userRoutes.post("/usuario/login", login)
 
 export default userRoutes;

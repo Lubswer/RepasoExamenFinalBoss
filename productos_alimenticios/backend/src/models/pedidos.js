@@ -19,7 +19,7 @@ const pedidosSchema = new Schema({
     },
     producto: {
         type: Schema.Types.ObjectId,
-        red: "producto",
+        ref: "producto",
         required: true,
         default: null
     }
