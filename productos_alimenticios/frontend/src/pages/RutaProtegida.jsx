@@ -1,5 +1,6 @@
-
+import Navbar from "./Navbar"
 import {Navigate, Outlet} from "react-router-dom"
+
 
 const RutaProtegida = () =>{
 
@@ -9,7 +10,15 @@ const RutaProtegida = () =>{
         return <Navigate to = "/login"/>
     }
 
-    return <Outlet />
+    return (
+    <>
+    <Navbar/>
+        <div>
+            <Outlet/>
+        </div>
+    
+    </>
+    )
 
 }
 

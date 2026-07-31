@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { toFormData } from "axios";
+import Table from "../components/Table";
 import "react-toastify/dist/ReactToastify.css";
 
 const Pedidos = () => {
   const [pedido, setPedido] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
   const pedidosObtener = async () => {
     try {
@@ -17,6 +19,8 @@ const Pedidos = () => {
       setPedido(res.data);
     } catch (error) {
       toast.error(error.response?.data?.msg);
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -27,34 +31,35 @@ const Pedidos = () => {
   return (
     <div>
       <h1>Pedidos</h1>
-
-      {pedido.length === 0 ? (
-        <p>Aun no existen pedidos</p>
-      ) : (
-        pedido.map((ped) => (
-          <div key={ped._id} style={{display : "flex"}}>
-            <p>
-              <strong>Nombre del cliente: </strong> {ped.cliente.nombre}
-            </p>
-            <p>
-              <strong>Nombre del producto: </strong>
-              {ped.producto.nombre}
-            </p>
-            <p>
-              <strong>Stock actual del producto: </strong>
-              {ped.producto.stock}
-            </p>
-            <p>
-              <strong>Precio del producto: </strong>
-              {ped.producto.precio}
-            </p>
-            <p>
-              <strong>Descripción del pedido: </strong>
-              {ped.descripcion}
-            </p>
-          </div>
-        ))
-      )}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        {cargando ? (
+          <p>Cargando pedidos...</p>
+        ) : pedido.length === 0 ? (
+          <p>Aun no existen pedidos</p>
+        ) : (
+          <Table
+            columnas={[
+              "Nombre de cliente",
+              "Correo Electrónico",
+              "Producto",
+              "Stock",
+              "Precio",
+              "Descripción",
+            ]}
+            datos={pedido}
+            renderFila={(pd) => (
+              <>
+                <td>{pd.cliente.nombre } {pd.cliente.apellido}</td>
+                <td>{pd.cliente.email}</td>
+                <td>{pd.producto.nombre}</td>
+                <td>{pd.producto.stock}</td>
+                <td>{pd.producto.precio}</td>
+                <td>{pd.descripcion}</td>
+              </>
+            )}
+          />
+        )}
+      </div>
     </div>
   );
 };
