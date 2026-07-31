@@ -65,7 +65,7 @@ const listar = async (req, res) => {
 
     try{
     const {id} = req.query
-    const clientes = await cliente.find({ usuario: id }).select("-_id -__v").populate("usuario", "nombre apellido _id")
+    const clientes = await cliente.find({ usuario: id }).select(" -__v").populate("usuario", "nombre apellido _id")
     res.status(200).json(clientes)
     }catch(error){
         res.status(500).json(`Error en el Servidor - ${error.message}`)

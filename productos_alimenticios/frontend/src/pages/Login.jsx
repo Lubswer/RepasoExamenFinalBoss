@@ -21,6 +21,8 @@ const Login = () => {
 
       localStorage.setItem("token", res.data.token || "token123");
 
+      localStorage.setItem("idUsuario", res.data._id)
+
       toast.success(`Bienvenido ${res.data.nombre} ...`);
 
       setTimeout(() => {

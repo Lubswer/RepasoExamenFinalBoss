@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Productos from "./pages/Productos";
 import RutaProtegida from "./pages/RutaProtegida";
 import Pedido from "./pages/Pedidos"
+import Clientes from "./pages/Clientes"
 import "./App.css";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route element={<RutaProtegida />}>
           <Route path="/productos" element={<Productos />} />
           <Route path="/pedido" element={<Pedido />} />
+          <Route path="/clientes" element={<Clientes />} />
         </Route>
       </Routes>
     </BrowserRouter>
