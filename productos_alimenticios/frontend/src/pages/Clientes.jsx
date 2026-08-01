@@ -2,13 +2,23 @@ import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import Table from "../components/Table";
-import Registro from "../components/Registro";
+import Formulario from "../components/Formulario";
 import "react-toastify/dist/ReactToastify.css";
+import Eliminar from "../components/Eliminar"
 
 const Clientes = () => {
   const [cliente, setCliente] = useState([]);
   const [carga, setCarga] = useState(true);
-  const [registro, setRegistro] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [clienteEditar, setClienteEditar] = useState(null);
+  const abrirModalNuevo = () => {
+    setClienteEditar(null)
+    setModal(true)
+  }
+  const abrirModalEditar = (cli) =>{
+    setClienteEditar(cli)
+    setModal(true)
+  }
   const obtenerClientes = async () => {
     try {
       const url = import.meta.env.VITE_BACKEND_URL;
@@ -38,7 +48,7 @@ const Clientes = () => {
       <div style={{ display: "row", justifyContent: "left" }}>
         <button
           onClick={() => {
-            setRegistro(true);
+            abrirModalNuevo();
           }}
         >
           Registrar cliente
@@ -56,7 +66,7 @@ const Clientes = () => {
               "Cedula",
             ]}
             datos={cliente}
-            renderFila={(cli) => (
+            renderFila={(cli) => cli.status === true ?(
               <>
                 <td>
                   {cli.nombre} {cli.apellido}
@@ -64,15 +74,28 @@ const Clientes = () => {
                 <td>{cli.ciudad}</td>
                 <td>{cli.email}</td>
                 <td>{cli.cedula}</td>
+                <td>
+                  <Eliminar
+                  tipo = "clientes"
+                  id = {cli._id}
+                  recargarLista = {obtenerClientes}
+                  />
+                </td>
+                <td>
+                  <button onClick={() => {abrirModalEditar(cli)}}>
+                    Editar Cliente
+                  </button>
+
+                </td>
               </>
-            )}
+            ): <></>}
           />
         ) : (
           <p>No hay clientes registrados</p>
         )}
       </div>
-      {registro && (
-        <Registro
+      {modal && (
+        <Formulario
           tipo="clientes"
           campos={[
             "nombre",
@@ -104,8 +127,9 @@ const Clientes = () => {
             "Cédula",
             "Fecha Nacimiento",
           ]}
-          setRegistro={setRegistro}
           recargarLista={obtenerClientes}
+          setModal = {setModal}
+          datosEditar = {clienteEditar}
         />
       )}
     </div>

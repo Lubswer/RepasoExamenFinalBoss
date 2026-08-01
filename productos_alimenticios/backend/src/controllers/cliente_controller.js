@@ -102,6 +102,7 @@ const actualizar = async (req , res) => {
         const {idCliente} = req.query
         
         if(!mongoose.Types.ObjectId.isValid(idCliente)){
+            console.log(idCliente)
             return res.status(404).json({msg: "ID del cliente no comple el formato"})
         }
 
@@ -114,16 +115,16 @@ const actualizar = async (req , res) => {
         const {cedula, nombre, apellido, ciudad, email, direccion, telefono, fecha_nacimiento} = req.body
 
         if(Object.values(req.body).includes("")){
-            return res.status(400).json("Debe llenar todos los campos")
+            return res.status(400).json({msg : "Debe llenar todos los campos"})
         }
 
-        if(email){
+        if(email !== clienteActualizar.email){
             const verificarEmail = await cliente.findOne({email})
             if(verificarEmail){
                return res.status(400).json({msg : "El email ya se encuentra registrado"})
             }
         }
-        if(cedula){
+        if(cedula !== clienteActualizar.cedula){
             const verificarCedula = await cliente.findOne({cedula})
             if(verificarCedula){
                return res.status(400).json({msg : "La cédula ya se encuentra registrada"})
