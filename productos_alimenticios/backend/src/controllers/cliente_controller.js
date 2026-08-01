@@ -8,7 +8,7 @@ const registro = async(req, res) =>{
         const {id} = req.query
 
         if(Object.values(req.query).includes("")){
-            return res.status(400).json("Sin token o id de usuario")
+            return res.status(400).json({ msg: "Sin token o id de usuario" });
         }
 
         if(!mongoose.Types.ObjectId.isValid(id)){
@@ -25,7 +25,7 @@ const registro = async(req, res) =>{
         const {cedula, nombre, apellido, ciudad, email, direccion, telefono, fecha_nacimiento} = req.body
 
         if(Object.values(req.body).includes("") || !cedula || !nombre || !apellido || !ciudad || !email || !direccion || !telefono || !fecha_nacimiento){
-            return res.status(400).json("Debe llenar todos los campos")
+            return res.status(400).json({ msg: "Debe llenar todos los campos obligatorios" });
         }
 
         const verificarEmail = await cliente.findOne({email})
@@ -54,7 +54,7 @@ const registro = async(req, res) =>{
 
     }catch(error){
 
-        res.status(500).json(`Error en el Servidor - ${error.message}`)
+        res.status(500).json({ msg: `Error en el Servidor - ${error.message}` });
 
     }
 

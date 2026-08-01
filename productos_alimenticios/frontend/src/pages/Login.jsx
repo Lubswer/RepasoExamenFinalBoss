@@ -23,7 +23,7 @@ const Login = () => {
 
       localStorage.setItem("idUsuario", res.data._id)
 
-      toast.success(`Bienvenido ${res.data.nombre} ...`);
+      toast.success(`Bienvenido ${res.data.nombre}`);
 
       setTimeout(() => {
         navigate("/productos");
