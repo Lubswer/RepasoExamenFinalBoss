@@ -37,6 +37,10 @@ const productoSchema = new Schema({
     proveedor: {
         type: String,
         required: true        
+    },
+    status: {
+        type: Boolean,
+        default: true   
     }
 },{
     timestamps: true

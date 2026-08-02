@@ -24,14 +24,15 @@ const Formulario = ({ tipo, campos, campoTipo, campoPH, recargarLista, setModal,
       const idUsuario = localStorage.getItem("idUsuario");
       let res
       if(datosEditar){
-      const url = `${import.meta.env.VITE_BACKEND_URL}/${tipo}/actualizar?token=${token}&idCliente=${datosEditar._id}`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/${tipo}/actualizar?token=${token}&id=${datosEditar._id}`;
+     
       res = await axios.patch(url, dataForm);
       }else{
-      const url = `${import.meta.env.VITE_BACKEND_URL}/${tipo}/registro?token=${token}&id=${idUsuario}`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/${tipo}/registro?token=${token}&id=${idUsuario}&idCliente=${dataForm.idCliente}&idProducto=${dataForm.idProducto}`;
       res = await axios.post(url, dataForm);
       }
 
-      toast.info("Registro Exitoso")
+      toast.info(res.data.msg)
       setTimeout(()=>{
       if(setModal) setModal(false)
       if(recargarLista) recargarLista()        
@@ -45,7 +46,7 @@ const Formulario = ({ tipo, campos, campoTipo, campoPH, recargarLista, setModal,
   return (
     <div>
         <ToastContainer/>
-      <h3>Registro {tipo}</h3>
+      <h3>Ingrese la informacion del {tipo}</h3>
       <form onSubmit={handleSubmit(handleFormulario)}>
         {campos.map((cam, index) => (
           <div key={index}>

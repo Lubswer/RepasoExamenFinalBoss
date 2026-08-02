@@ -34,6 +34,10 @@ const registrar = async(req, res) => {
         nuevoPedido.producto = idProducto
         nuevoPedido.codigo = codigo
 
+        if(nuevoPedido.descripcion === ""){
+            nuevoPedido.descripcion = "Sin descripción"
+        }
+
         const stockProducto = await producto.findById(idProducto)
 
         if(stockProducto.stock <= 0){
@@ -74,13 +78,13 @@ const actualizar = async(req , res) => {
 
     const {descripcion} = req.body
 
-    const {idPedido} = req.query
+    const {id} = req.query
 
-    if(!mongoose.Types.ObjectId.isValid(idPedido)){
+    if(!mongoose.Types.ObjectId.isValid(id)){
         return res.status(404).json({msg : "La ID no comple el formato correcto"})
     }
 
-    const pedidoActualizar = await pedido.findById(idPedido)
+    const pedidoActualizar = await pedido.findById(id)
 
     if(!pedidoActualizar){
         return res.status(404).json({msg : "Pedido no encontrado"})
@@ -92,7 +96,7 @@ const actualizar = async(req , res) => {
 
     res.status(200).json({msg : "Pedido actualizado correctamente", pedidoActualizar})
     }catch(error){
-        res.status(500).json(`Error del Servidor - ${error.message}`)
+        res.status(500).json({msg : `Error del Servidor - ${error.message}`})
     }
 
 }
@@ -101,20 +105,20 @@ const eliminar = async (req, res) => {
 
 
     try{
-    const {idPedido} = req.query
+    const {id} = req.query
 
-    if(!mongoose.Types.ObjectId.isValid(idPedido)){
+    if(!mongoose.Types.ObjectId.isValid(id)){
 
         return res.status(404).json({msg : "La ID no cumple con el formato valido"})
     }
 
-    const pedidoEliminar = await pedido.findById(idPedido)
+    const pedidoEliminar = await pedido.findById(id)
 
     if(!pedidoEliminar){
-        return res.status(404).json({msg : `Pedido con ID ${idPedido} No fue encontrado`})
+        return res.status(404).json({msg : `Pedido con ID ${id} No fue encontrado`})
     }
 
-    await pedido.findByIdAndDelete(idPedido)
+    await pedido.findByIdAndDelete(id)
 
     res.status(200).json({msg : "Pedido eliminado correctamente"})
     }catch(error){

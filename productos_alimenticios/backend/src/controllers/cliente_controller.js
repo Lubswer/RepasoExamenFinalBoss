@@ -74,13 +74,13 @@ const listar = async (req, res) => {
 
 const eliminar = async (req, res) => {
     try{
-        const {idCliente} = req.query
+        const {id} = req.query
         
-        if(!mongoose.Types.ObjectId.isValid(idCliente)){
+        if(!mongoose.Types.ObjectId.isValid(id)){
             return res.status(404).json({msg: "ID del cliente no comple el formato"})
         }
 
-        const clienteEliminado = await cliente.findByIdAndUpdate(idCliente, {status : false})
+        const clienteEliminado = await cliente.findByIdAndUpdate(id, {status : false})
 
         if(!clienteEliminado){
             return res.status(404).json({msg : "ID del cliente no ha sido encontrada"})
@@ -99,17 +99,17 @@ const eliminar = async (req, res) => {
 
 const actualizar = async (req , res) => {
     try{
-        const {idCliente} = req.query
+        const {id} = req.query
         
-        if(!mongoose.Types.ObjectId.isValid(idCliente)){
-            console.log(idCliente)
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            console.log(id)
             return res.status(404).json({msg: "ID del cliente no comple el formato"})
         }
 
-        const clienteActualizar = await cliente.findById(idCliente)
+        const clienteActualizar = await cliente.findById(id)
 
         if(!clienteActualizar){
-            res.status(404).json({msg : `El cliente con ID - ${idCliente} No ha sido encontrado`})
+            res.status(404).json({msg : `El cliente con ID - ${id} No ha sido encontrado`})
         }
 
         const {cedula, nombre, apellido, ciudad, email, direccion, telefono, fecha_nacimiento} = req.body

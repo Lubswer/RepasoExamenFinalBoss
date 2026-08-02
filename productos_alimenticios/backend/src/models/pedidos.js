@@ -8,7 +8,6 @@ const pedidosSchema = new Schema({
     },
     descripcion : {
         type: String,
-        required: true,
         default: "Sin descripción"
     },
     cliente: {

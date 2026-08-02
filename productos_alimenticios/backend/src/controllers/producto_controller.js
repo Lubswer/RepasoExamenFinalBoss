@@ -58,19 +58,19 @@ const listar = async(req , res) => {
 const eliminar = async(req, res) => {
     try{
 
-        const {idProducto} = req.query
+        const {id} = req.query
 
-        if(!mongoose.Types.ObjectId.isValid(idProducto)){
-            return res.status(404).json({msg :   `La ID - ${idProducto} No complue con el formato correcto`})
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            return res.status(404).json({msg :   `La ID - ${id} No complue con el formato correcto`})
         }
 
-        const verificarID = await producto.findById(idProducto)
+        const verificarID = await producto.findById(id)
 
         if(!verificarID){
             return res.status(400).json({msg : "La ID no ha sido encontrada"})
         }
 
-        await producto.findByIdAndDelete(idProducto)
+        await producto.findByIdAndUpdate(id, {status : false})
 
         res.status(200).json({msg : "Producto eliminado correctamente"})
 
@@ -84,13 +84,14 @@ const eliminar = async(req, res) => {
 const actualizar = async(req, res) => {
     try{
 
-        const {idProducto} = req.query
+        const {id} = req.query
 
-        if(!mongoose.Types.ObjectId.isValid(idProducto)){
-            return res.status(404).json({msg :   `La ID - ${idProducto} No complue con el formato correcto`})
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            return res.status(404).json({msg :   `La ID - ${id} No complue con el formato correcto`})
         }
 
-        const verificarID = await producto.findById(idProducto)
+        const verificarID = await producto.findById(id)
+        
 
         if(!verificarID){
             return res.status(400).json({msg : "La ID no ha sido encontrada"})
@@ -113,7 +114,9 @@ const actualizar = async(req, res) => {
             return res.status(400).json({msg : "El Stock debe ser un número entero Positivo"})
         }
 
-        const productoActualizar = await producto.findById(idProducto)
+        const productoActualizar = await producto.findById(id)
+
+        console.log(productoActualizar)
 
         productoActualizar.nombre =  nombre ?? productoActualizar.nombre
         productoActualizar.descripcion = descripcion ?? productoActualizar.descripcion
@@ -124,7 +127,7 @@ const actualizar = async(req, res) => {
 
         await productoActualizar.save()
         
-        res.status(200).json({msg : "Prodcuto actualizado correctamente", productoActualizar})
+        res.status(200).json({msg : "Prodcuto actualizado correctamente"})
     }catch(error){
 
     }
