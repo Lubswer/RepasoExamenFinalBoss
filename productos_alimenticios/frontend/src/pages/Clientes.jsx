@@ -28,7 +28,7 @@ const Clientes = () => {
         `${url}/clientes/listar?token=${token}&id=${idUsuario}`,
       );
       setCliente(res.data);
-      toast.succes(res.data.msg);
+      toast.success(res.data.msg);
     } catch (error) {
       const mensaje = error.response?.data?.msg;
       toast.error(mensaje);

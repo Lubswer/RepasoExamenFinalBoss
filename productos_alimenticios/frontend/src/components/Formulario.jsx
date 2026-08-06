@@ -5,12 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Formulario = ({ tipo, campos, campoTipo, campoPH, recargarLista, setModal, datosEditar   }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const {register,handleSubmit,reset,formState: { errors },} = useForm();
   useEffect (() => {
     if(datosEditar){
       reset(datosEditar)

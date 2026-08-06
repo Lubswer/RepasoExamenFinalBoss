@@ -1,0 +1,144 @@
+body {
+  display : flex;
+  justify-content: center;
+  align-items: center; 
+  flex-direction: column;
+  padding-top: 80px
+}
+
+.navBarItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 30px;
+  padding: 5px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  left: 0;
+  top:0;
+  background-color: rgb(255, 255, 255)
+
+}
+.navBarItem button{
+  background-color: rgb(27, 27, 27);
+  color: rgb(245, 245, 245);
+  border: none;
+  border-radius: 40px;
+  padding: 10px;
+
+}
+.navBarItem button:hover{
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.664);
+}
+.navItem{
+  display: flex;
+  justify-content: row;
+  gap: 40px;
+}
+.sectionNav a{
+  text-decoration: none;
+  color:  black;
+  font-size: 17px
+}
+
+
+.sectionNav {
+  background-color: transparent;
+  padding: 12px;
+  border-radius: 20px;
+  transition: all 0.7s ease; 
+}
+
+.sectionNav:has(a.active) {
+  background-color: rgba(255, 255, 255, 0.582);
+  padding: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.534);
+}
+
+table{
+  border: 1px solid rgb(255, 255, 255);
+  border-collapse: collapse; 
+  margin-top: 10px
+
+}
+td {
+  border: 1px solid #3b3b3ba1;
+  padding: 10px;
+  text-align: right;
+
+}
+th {
+  border: 1px solid rgba(195, 211, 255, 0.384);
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(64, 112, 245);
+  color: white;
+  
+}
+.editarBTN{
+  border:none;
+  background-color: rgba(147, 224, 102, 0.822);
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+.eliminarBTN{
+  border:none;
+  background-color: rgba(243, 96, 96, 0.733);
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+.editarBTN:hover{
+  cursor: pointer;
+  background-color: rgba(147, 224, 102, 0.514);
+}
+.eliminarBTN:hover{
+  cursor: pointer;
+  background-color: rgba(243, 96, 96, 0.507);
+}
+.crearBTN{
+  border: none;
+  background-color: rgba(58, 58, 58, 0.856);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+.crearBTN:hover{
+  border: none;
+  background-color: rgb(124, 124, 124);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 5px;
+  transform: translateY(-1px);
+  cursor: pointer;
+
+}
+.modalFormulario {
+  position: fixed;
+  top: 11%;
+  right: 2%;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.733);
+  padding: 10px 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.534);
+  border-radius: 20px;
+}
+.modalFormulario input {
+   border-right: none;
+   border-top: none;
+   border-left: none;
+   background : transparent;
+   margin: 5px;
+
+}
+.modalFormulario button {
+   background : rgba(46, 84, 255, 0.911);
+   color: white;
+   border: none;
+   margin: 5px;
+   padding: 3px 10px;
+   border-radius: 5px;
+
+}
